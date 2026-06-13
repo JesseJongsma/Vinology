@@ -1,0 +1,84 @@
+/* .app-layout {
+  min-height: 100vh;
+}
+
+.hamburger-button {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 20;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 14px;
+  background: white;
+  color: #27221d;
+  font-size: 24px;
+  box-shadow: 0 8px 24px rgba(31, 28, 24, 0.12);
+  cursor: pointer;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  background: rgba(0, 0, 0, 0.32);
+}
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 40;
+  width: 280px;
+  max-width: 82vw;
+  height: 100vh;
+  background: #fffaf3;
+  box-shadow: 16px 0 40px rgba(31, 28, 24, 0.18);
+  transform: translateX(100%);
+  transition: transform 180ms ease;
+  padding: 22px;
+}
+
+.side-menu.open {
+  transform: translateX(0);
+}
+
+.side-menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.side-menu-header h2 {
+  margin: 0;
+}
+
+.side-menu-header button {
+  border: none;
+  background: transparent;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.side-menu-nav {
+  display: grid;
+  gap: 12px;
+}
+
+.side-menu-nav a {
+  padding: 14px 16px;
+  border-radius: 14px;
+  color: #27221d;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.side-menu-nav a:hover {
+  background: #eee9e1;
+}
+
+.page-content {
+  min-height: 100vh;
+} */

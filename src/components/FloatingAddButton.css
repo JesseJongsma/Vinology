@@ -1,0 +1,5 @@
+.app-fab {
+  margin-bottom: calc(72px + env(safe-area-inset-bottom));
+  margin-right: 8px;
+  z-index: 100;
+}
