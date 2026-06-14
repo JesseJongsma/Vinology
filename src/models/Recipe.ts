@@ -7,6 +7,6 @@ export type Recipe = {
 	targetAbv?: number | null;
 	isPublic: boolean;
 	createdAt: string;
-	updatedAt?: string;
+	updatedAt?: string | null;
 	syncStatus: "local" | "pending" | "synced" | "conflict";
 };

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { IonApp, setupIonicReact } from "@ionic/react";
 
-import { seedDatabaseIfEmpty } from "./db/seedDatabase";
+import { seedDatabaseIfEmpty } from "./db/SeedDatabase";
 
 import "@ionic/react/css/core.css";
 import "@ionic/react/css/normalize.css";
@@ -10,11 +10,11 @@ import "@ionic/react/css/structure.css";
 import "@ionic/react/css/typography.css";
 import "./theme/variables.css";
 
-import Dashboard from "./pages/collection/Dashboard";
-import Recipes from "./pages/collection/Recipes";
-import Batches from "./pages/collection/Batches";
-import Vessels from "./pages/collection/Vessels";
-import ExploreRecipes from "./pages/collection/ExploreRecipes";
+import Dashboard from "./pages/Collection/Dashboard";
+import Recipes from "./pages/Collection/Recipes";
+import Batches from "./pages/Collection/Batches";
+import Vessels from "./pages/Collection/Vessels";
+import ExploreRecipes from "./pages/Collection/ExploreRecipes";
 
 // import AppLayout from "./components/AppLayout";
 import TabLayout from "./components/TabLayout";

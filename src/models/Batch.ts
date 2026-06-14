@@ -8,7 +8,7 @@ export type Batch = {
   estimatedDays: number;
   currentDay: number;
   createdAt: string;
-  updatedAt: string;
+  updatedAt?: string | null;
   deletedAt?: string | null;
   syncStatus: "local" | "pending" | "synced" | "conflict";
 };

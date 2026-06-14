@@ -7,7 +7,7 @@ export type VesselRow = {
 	volume_liters: number;
 	nfc_tag_id?: string | null;
 	created_at: string;
-	updated_at: string;
+	updated_at?: string | null;
 	deleted_at?: string | null;
 	sync_status: Vessel["syncStatus"];
 };

@@ -1,0 +1,11 @@
+export interface ISyncableEntity {
+  id: string;
+
+  syncStatus:
+    | "local"
+    | "pending"
+    | "synced"
+    | "conflict";
+
+  updatedAt?: string | null;
+}

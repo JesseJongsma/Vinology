@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from "@ionic/react";
-import { createRecipe, getRecipes, type Recipe } from "../../data/repositories/RecipesRepository";
+import { dataContext } from "../../data/DataContextProvider";
+import { type Recipe } from "../../models/Recipe";
 import FloatingAddButton from "../../components/FloatingAddButton";
 import RecipeDetailModal from "../Detail/RecipeDetailModal";
 
@@ -11,7 +12,7 @@ export default function Recipes() {
 	const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
 
 	async function loadRecipes() {
-		const data = await getRecipes();
+		const data = await dataContext.local.recipes.getAll();
 		setRecipes(data);
 		setIsLoading(false);
 	}
@@ -32,7 +33,7 @@ export default function Recipes() {
 	// }
 
 	async function handleOpenCreate() {
-		setSelectedRecipe(await createRecipe());
+		setSelectedRecipe(await dataContext.local.recipes.create());
 		setIsModalOpen(true);
 	}
 

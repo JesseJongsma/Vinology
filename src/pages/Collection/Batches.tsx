@@ -1,20 +1,30 @@
 import { useEffect, useState } from "react";
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from "@ionic/react";
 import FloatingAddButton from "../../components/FloatingAddButton";
-import { createBatch, getBatches, type Batch } from "../../data/repositories/BatchesRepository";
-import { getVessels, type Vessel } from "../../data/repositories/VesselsRepository";
+import { dataContext } from "../../data/DataContextProvider";
+import { type Batch } from "../../models/Batch";
+import { type Vessel } from "../../models/Vessel";
+import { type Recipe } from "../../models/Recipe";
 
 export default function Batches() {
 	const [batches, setBatches] = useState<Batch[]>([]);
+	const [recipes, setRecipes] = useState<Recipe[]>([]);
+	const [vessels, setVessels] = useState<Vessel[]>([]);
 	const [emptyVessels, setEmptyVessels] = useState<Vessel[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 
 	async function loadBatchesPage() {
-		const [batchData, vesselData] = await Promise.all([getBatches(), getVessels()]);
+		const [batchData, vesselData, recipeData] = await Promise.all([
+			dataContext.local.batches.getAll(),
+			dataContext.local.vessels.getAll(),
+			dataContext.local.recipes.getAll()
+		]);
 
 		const usedVesselIds = new Set(batchData.map((batch) => batch.vesselId).filter(Boolean));
 
 		setBatches(batchData);
+		setRecipes(recipeData);
+		setVessels(vesselData);
 		setEmptyVessels(vesselData.filter((vessel) => !usedVesselIds.has(vessel.id)));
 		setIsLoading(false);
 	}
@@ -22,12 +32,12 @@ export default function Batches() {
 	async function handleAddBatch() {
 		const availableVessel = emptyVessels[0];
 
-		await createBatch({
-			name: `Batch #${batches.length + 1}`,
-			vesselId: availableVessel?.id,
-			status: "primary",
-			estimatedDays: 45,
-		});
+		const newBatch = await dataContext.local.batches.create();
+		newBatch.name = `Batch #${batches.length + 1}`;
+		newBatch.vesselId = availableVessel?.id;
+		newBatch.status = "primary";
+		newBatch.estimatedDays = 45;
+		await dataContext.local.batches.save(newBatch);
 
 		await loadBatchesPage();
 	}
@@ -67,7 +77,7 @@ export default function Batches() {
 										<div className="card-main">
 											<div>
 												<h3>{batch.name}</h3>
-												<p>{batch.recipeName ?? "No recipe linked"}</p>
+												<p>{recipes.find((r) => r.id === batch.recipeId)?.name ?? "No recipe linked"}</p>
 											</div>
 
 											<span className="batch-status">{batch.status}</span>
@@ -75,7 +85,7 @@ export default function Batches() {
 
 										<div className="batch-meta">
 											<p>
-												<strong>Vessel:</strong> {batch.vesselName ?? "No vessel assigned"}
+												<strong>Vessel:</strong> {vessels.find((v) => v.id === batch.vesselId)?.name ?? "No vessel assigned"}
 											</p>
 											<p>
 												<strong>Day:</strong> {batch.currentDay} of {batch.estimatedDays}

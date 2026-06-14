@@ -11,7 +11,8 @@ import {
 	IonTitle,
 	IonToolbar,
 } from "@ionic/react";
-import { createRecipe, type Recipe } from "../../data/repositories/RecipesRepository";
+import { dataContext } from "../../data/DataContextProvider";
+import { type Recipe } from "../../models/Recipe";
 
 
 type Props = {
@@ -47,14 +48,14 @@ export default function RecipeDetailModal({ isOpen, recipe, onClose, onSaved }: 
 			// We'll add updateRecipe next.
 			console.log("Update recipe later", recipe?.id);
 		} else {
-			await createRecipe({
-				name,
-				type,
-				description,
-				targetAbv: Number(targetAbv),
-				estimatedDays: Number(estimatedDays),
-				isPublic: false,
-			});
+			const newRecipe = await dataContext.local.recipes.create();
+			newRecipe.name = name;
+			newRecipe.type = type;
+			newRecipe.description = description;
+			newRecipe.targetAbv = Number(targetAbv);
+			newRecipe.estimatedDays = Number(estimatedDays);
+			newRecipe.syncStatus = "local";
+			await dataContext.local.recipes.save(newRecipe);
 		}
 
 		onSaved();
